@@ -1,0 +1,153 @@
+.bg-color-grblk
+{
+    /* background-color: #4b4f49; */
+    width: 100%;
+    background: linear-gradient(
+        -135deg
+        ,#797779,#1c1c1d);
+}
+.editIm
+{
+    max-width: 20px;
+}    
+.cd-td
+{
+    margin-top: 20px;
+}
+
+.p-td
+{
+    margin-top: 7px;
+}
+
+.form-eml
+{
+    margin-top: 5%;
+}
+
+.form-reg-bg 
+{
+    background: #667;
+}
+.form-reg
+{
+    width: 466px;
+    margin-left: 45%;
+    margin-top: 15%;
+    background: #667; 
+}
+.form-pswd
+{
+    margin-top: 5%;
+}
+
+.container-login-100
+{
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background: linear-gradient(-135deg
+                ,#797779,#1c1c1d);    
+}
+
+.f-s
+{
+    margin-top: 8%;
+    margin-left: 8%;
+}
+
+.wrap-login
+{
+    width: 480px;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    overflow: hidden;
+    flex-wrap: wrap;
+    justify-content: space-between; 
+    padding-left: 100px;
+    padding-top: 60px;
+    padding-bottom: 60px;
+    /* padding: 70px 130px 35px 95px; */
+}
+
+.loginTodo
+{
+    width: 290px;   
+}
+
+.registerTitle
+{
+    font-family: Poppins;
+    font-size: 34px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 30px;
+}
+
+.loginTitle
+{
+    font-family: Poppins;
+    font-size: 34px;
+    color: #333;
+    line-height: 1.2;
+    text-align: center;
+    width: 100%;
+    display: block;
+    padding-bottom: 30px;
+}
+
+
+.wrap-input
+{
+    width: 100%;
+    z-index: 1;
+}
+.wrap-btn
+{
+    width: 100%;
+    z-index: 1;
+    margin-bottom: 10px;
+}  
+a:link 
+{
+    text-decoration: none;
+}
+.inpt-tdauth
+{
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    width: 100% !important;
+    background: #e6e6e7;
+    height: 50px;
+    border-radius: 25px !important;
+    padding: 0 30px 0 68px !important;
+    border: 1px solid #ced4da;
+}
+.lgn-frm-btn 
+{
+    font-size: 15px;
+    line-height: 1.5;
+    text-transform: uppercase;
+    width: 100%;
+    height: 50px;
+    border-radius: 25px !important;
+}
+.t-p-136 
+{
+    padding-top: 30px;
+}
+
+.txt-2
+{
+    font-size: 18px;
+    line-height: 1.5;
+    color: #667;
+}
