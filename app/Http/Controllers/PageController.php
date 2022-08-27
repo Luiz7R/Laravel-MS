@@ -58,20 +58,14 @@ class PageController extends Controller
 
     public function jsonProductSales()
     {
-          $salesProduct = array();
+          $products = Product::all();//->productSales();
 
-          foreach( Product::all() as $key => $product )
+          foreach( $products as $product )
           {
-               $salesQuantity = $this->getProductSales($product->id);
+               $product['sales'] = $product->productSales;
+          } 
 
-               if ( $salesQuantity > 0 )
-               {
-                    $salesProduct[$key]["name"] = $product->name;
-                    $salesProduct[$key]["salesQuantity"] = $salesQuantity;                
-               }
-          }
-
-          return response()->json($salesProduct, 200, [], JSON_FORCE_OBJECT); 
+          return response()->json($products, 200, [], JSON_FORCE_OBJECT); 
     }
 
     public function getProductSales($productId)

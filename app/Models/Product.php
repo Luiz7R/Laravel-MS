@@ -21,5 +21,15 @@ class Product extends Model
         'price',
         'user_id',
         'category_id'
-    ];    
+    ];  
+    
+    public function sales()
+    {
+        return $this->hasMany(Sales::class);      
+    }
+
+    public function getProductSalesAttribute()
+    {
+        return $this->sales()->count();      
+    }
 }
