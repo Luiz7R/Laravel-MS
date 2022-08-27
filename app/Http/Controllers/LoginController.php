@@ -11,9 +11,7 @@ class LoginController extends Controller
       public function loginPage()
       {
             if ( ! Auth::check() )
-            {
                  return redirect()->route('msPageLogin'); 
-            }
 
             return redirect()->route('msHome');
       }
@@ -23,9 +21,7 @@ class LoginController extends Controller
             $data = $request->validated();
 
             if ( Auth::attempt(['email' => $data['email'], 'password' => $data['password'] ]) )
-            {
-                  return redirect()->route('msHome'); // ->with('msg', 'Successfully logged'); // redirect()->route('msHome');
-            }
+                  return redirect()->route('msHome'); // ->with('msg', 'Successfully logged');
 
             return back()->withErrors([
                   'email' => 'The Provided credentials do not match.',

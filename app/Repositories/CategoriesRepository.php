@@ -20,11 +20,9 @@ class CategoriesRepository
     public function getCategory($categoryId)
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404);
-        }
 
-        $category = Categorie::find($categoryId);
+        $category = Categorie::findOrFail($categoryId);
 
         return $category;
     }
@@ -32,9 +30,7 @@ class CategoriesRepository
     public function getCategories()
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404);
-        }
 
         return Categorie::all();
     }
@@ -54,9 +50,7 @@ class CategoriesRepository
     public function updateCategory(Request $request, $categoryId)
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
  
         $category = Categorie::where('user_id', Auth::user()->id)->findOrfail($categoryId);
  
@@ -67,9 +61,7 @@ class CategoriesRepository
     public function deleteCategory($categoryId)
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
         
         $category = Categorie::where('user_id', Auth::user()->id)->findOrfail($categoryId);
 

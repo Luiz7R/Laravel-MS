@@ -19,9 +19,7 @@ class ProductsRepository
     public function postProduct(Request $request)
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
 
         Product::create([
             'name' => $request->name,
@@ -36,9 +34,7 @@ class ProductsRepository
     public function getProduct($productId)
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
 
         return Product::find($productId);
     }
@@ -46,9 +42,7 @@ class ProductsRepository
     public function getProducts()
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
         
         return Product::all();        
     }
@@ -61,9 +55,7 @@ class ProductsRepository
     public function updateProduct(Request $request, $productId)
     {
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
 
         $product = Product::where('user_id', Auth::user()->id)->findOrfail($productId);
 
@@ -77,9 +69,7 @@ class ProductsRepository
     {
 
         if ( empty(Auth::user()->id) )
-        {
              return abort(404); 
-        }
         
         $product = Product::where('user_id', Auth::user()->id)->findOrfail($productId);
 

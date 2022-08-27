@@ -17,9 +17,7 @@ class CategoriesController extends Controller
     public function CategoriesPage()
     {
            if ( ! Auth::check() )
-           {
                return redirect()->route('msPageLogin');  
-           }
 
            $categories = $this->getCategories();
 

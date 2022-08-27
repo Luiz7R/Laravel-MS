@@ -22,9 +22,7 @@ class PageController extends Controller
     public function Homepage()
     {
         if ( ! Auth::check() )
-        {
-             return view('/login');    
-        }
+            return view('/login');
 
         $categories = $this->repositoryCat->getCategories();
         $products = $this->repository->getProducts();
@@ -37,9 +35,7 @@ class PageController extends Controller
     public function Login()
     {
         if ( Auth::check() )
-        {
-             return redirect('/');    
-        }  
+             return redirect('/');     
         
         return view('Login');
     }
@@ -47,9 +43,7 @@ class PageController extends Controller
     public function Register()
     {
          if ( Auth::check() )
-         {
               return redirect('/');
-         }
 
          return view('Register');
     }
@@ -57,9 +51,7 @@ class PageController extends Controller
     public function Statistics()
     {
          if ( ! Auth::check() )
-         {
               return redirect('/');
-         }
          
          return view('statistics');
     }
@@ -67,7 +59,6 @@ class PageController extends Controller
     public function jsonProductSales()
     {
           $salesProduct = array();
-          $cont = 0;
 
           foreach( Product::all() as $key => $product )
           {
@@ -75,9 +66,8 @@ class PageController extends Controller
 
                if ( $salesQuantity > 0 )
                {
-                    $salesProduct[$cont]["name"] = $product->name;
-                    $salesProduct[$cont]["salesQuantity"] = $salesQuantity; 
-                    $cont++;                   
+                    $salesProduct[$key]["name"] = $product->name;
+                    $salesProduct[$key]["salesQuantity"] = $salesQuantity;                
                }
           }
 
@@ -86,8 +76,7 @@ class PageController extends Controller
 
     public function getProductSales($productId)
     {
-          return Sales::select('*')->where('product_id',$productId)
-                      ->get()->count();       
+          return Sales::where('product_id',$productId)->get()->count();       
     }
 
 }

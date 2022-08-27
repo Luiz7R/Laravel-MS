@@ -24,9 +24,7 @@ class ProductsController extends Controller
      public function ProductsPage()
      {
             if ( ! Auth::check() )
-            {
                 return redirect()->route('msPageLogin');  
-            }
 
             $categories = $this->getCategories();
             $products = $this->getProducts();
@@ -58,9 +56,7 @@ class ProductsController extends Controller
      public function getProduct($productId)
      {
           if ( empty(Auth::user()->id) )
-          {
                return abort(404); 
-          }
 
           $product = $this->repository->getProduct($productId);
 
