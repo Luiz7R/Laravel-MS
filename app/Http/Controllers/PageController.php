@@ -58,7 +58,7 @@ class PageController extends Controller
 
     public function jsonProductSales()
     {
-          $products = Product::all();//->productSales();
+          $products = Product::all();
 
           foreach( $products as $product )
           {
