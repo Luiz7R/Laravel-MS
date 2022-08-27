@@ -68,9 +68,4 @@ class PageController extends Controller
           return response()->json($products, 200, [], JSON_FORCE_OBJECT); 
     }
 
-    public function getProductSales($productId)
-    {
-          return Sales::where('product_id',$productId)->get()->count();       
-    }
-
 }
