@@ -113,10 +113,10 @@
                                 <tr>
                                     <td class="text-center">{{ $categorie->category_name }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#uploadCategoryModal" id="uploadCategory" data-cat="{{ $categorie->id }}">Editar</button>
+                                        <button class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#uploadCategoryModal" id="uploadCategory" data-cat="{{ $categorie->id }}">Edit</button>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-danger del" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal" id="deleteCategory" data-cat="{{ $categorie->id }}">Deletar</button>
+                                        <button class="btn btn-danger del" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal" id="deleteCategory" data-cat="{{ $categorie->id }}">Delete</button>
                                     </td>
                                 </tr>    
                                 @endforeach

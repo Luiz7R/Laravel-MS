@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Sales;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\ProductsRepository;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
@@ -60,7 +61,7 @@ class PageController extends Controller
     {
           $products = $this->productRepository->getProductSales();
 
-          return response()->json($products, 200, [], JSON_FORCE_OBJECT); 
+          return response($products, 200);
     }
 
 }
