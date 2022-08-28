@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
-    public $repository;
-    public $repositoryCat;
+    public $productRepository;
+    public $categoryRepository;
 
     public function __construct(ProductsRepository $repository, CategoriesRepository $repositoryCat)
     {
-         $this->repository = $repository;          
-         $this->repositoryCat = $repositoryCat;
+         $this->productRepository = $repository;          
+         $this->categoryRepository = $repositoryCat;
     }
 
     public function Homepage()
@@ -24,10 +24,10 @@ class PageController extends Controller
         if ( ! Auth::check() )
             return view('/login');
 
-        $categories = $this->repositoryCat->getCategories();
-        $products = $this->repository->getProducts();
-        $latestProducts = $this->repository->latest();
-        $sales = Sales::all();
+          $products = $this->productRepository->getProducts();
+          $latestProducts = $this->productRepository->latest();
+          $categories = $this->categoryRepository->getCategories();
+          $sales = Sales::all();
 
         return view('home', compact('categories', 'products', 'latestProducts', 'sales'));
     }
@@ -56,14 +56,9 @@ class PageController extends Controller
          return view('statistics');
     }
 
-    public function jsonProductSales()
+    public function getProductSales()
     {
-          $products = Product::all();
-
-          foreach( $products as $product )
-          {
-               $product['sales'] = $product->productSales;
-          } 
+          $products = $this->productRepository->getProductSales();
 
           return response()->json($products, 200, [], JSON_FORCE_OBJECT); 
     }

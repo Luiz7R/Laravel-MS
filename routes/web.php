@@ -27,7 +27,7 @@ Route::post('/ms/register', [RegisterController::class, 'register'])->name('msRe
 Route::post('/ms/auth/login', [LoginController::class, 'login'])->name('msLogin');
 Route::post('/ms/logout', [LoginController::class, 'logout'])->name('msLogout');
 
-route::get('/api/v1/product/sales', [PageController::class, 'jsonProductSales'])->name('jsonSales');
+route::get('/api/v1/product/sales', [PageController::class, 'getProductSales'])->name('getProductSales');
 
 Route::get('/products', [ProductsController::class, 'ProductsPage'])->name('productsPage');
 Route::get('/api/v1/product/{productId}', [ProductsController::class, 'getProduct'])->name('getProduct');

@@ -28,7 +28,7 @@ class Product extends Model
         return $this->hasMany(Sales::class);      
     }
 
-    public function getProductSalesAttribute()
+    public function getProductSales()
     {
         return $this->sales()->count();      
     }

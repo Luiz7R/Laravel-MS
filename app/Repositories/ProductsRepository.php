@@ -76,4 +76,15 @@ class ProductsRepository
         $product->delete();        
     }
 
+    public function getProductSales()
+    {
+        $products = Product::all();
+
+        collect($products)->map(function($product) {
+            $product['sales'] = $product->getProductSales();
+        });
+
+        return $products;
+    }
+
 }
