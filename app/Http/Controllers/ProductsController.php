@@ -24,7 +24,9 @@ class ProductsController extends Controller
      public function ProductsPage()
      {
             if ( ! Auth::check() )
-                return redirect()->route('msPageLogin');  
+            {
+                 return redirect()->route('msPageLogin');  
+            }
 
             $categories = $this->getCategories();
             $products = $this->getProducts();
@@ -34,6 +36,11 @@ class ProductsController extends Controller
 
      public function postProduct(Request $request)
      {
+          if ( empty(Auth::user()->id) )
+          {
+              return abort(404);  
+          }
+
           $this->repository->postProduct($request);
 
           return redirect()->route('productsPage');
@@ -41,39 +48,48 @@ class ProductsController extends Controller
 
      public function getProducts()
      {
-          $products = $this->repository->getProducts();
+          if ( empty(Auth::user()->id) )
+          {
+              return abort(404); 
+          }
 
-          return $products;
+          return $this->repository->getProducts();
      }
 
      public function getCategories()
      {
-          $categories = $this->repositoryCat->getCategories();
-
-          return $categories;
+          return $this->repositoryCat->getCategories();
      }     
 
      public function getProduct($productId)
      {
           if ( empty(Auth::user()->id) )
+          {
                return abort(404); 
+          }
 
-          $product = $this->repository->getProduct($productId);
-
-          return $product;
+          return $this->repository->getProduct($productId);
      }
 
      public function updateProduct(Request $request, $productId)
      {
-          $this->repository->updateProduct($request, $productId);
+          $request->merge(['product_id' => $productId]);
 
-          return true;
+          $this->validate($request, [
+               'product_id' => 'required|exists:products,id'
+          ]);
+
+          return $this->repository->updateProduct($request, $productId);
      }
 
-     public function deleteProduct($productId)
+     public function deleteProduct(Request $request, $productId)
      {
-          $this->repository->deleteProduct($productId);
-  
-          return redirect()->route('msHome');
+          $request->merge(['product_id' => $productId]);
+
+          $this->validate($request, [
+               'product_id' => 'required|exists:products,id'
+          ]);
+
+          return $this->repository->deleteProduct($productId);
      }
 }

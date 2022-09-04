@@ -6,7 +6,6 @@ use App\Models\Categorie;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
 class CategoriesRepository
 {
@@ -20,7 +19,9 @@ class CategoriesRepository
     public function getCategory($categoryId)
     {
         if ( empty(Auth::user()->id) )
-             return abort(404);
+        {
+            return abort(404);
+        }
 
         $category = Categorie::findOrFail($categoryId);
 
@@ -30,7 +31,9 @@ class CategoriesRepository
     public function getCategories()
     {
         if ( empty(Auth::user()->id) )
-             return abort(404);
+        {
+            return abort(404);
+        }
 
         return Categorie::all();
     }
@@ -50,7 +53,9 @@ class CategoriesRepository
     public function updateCategory(Request $request, $categoryId)
     {
         if ( empty(Auth::user()->id) )
-             return abort(404); 
+        {
+            return abort(404); 
+        }
  
         $category = Categorie::where('user_id', Auth::user()->id)->findOrfail($categoryId);
  
@@ -61,7 +66,9 @@ class CategoriesRepository
     public function deleteCategory($categoryId)
     {
         if ( empty(Auth::user()->id) )
-             return abort(404); 
+        {
+            return abort(404); 
+        }
         
         $category = Categorie::where('user_id', Auth::user()->id)->findOrfail($categoryId);
 

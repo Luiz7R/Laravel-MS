@@ -11,7 +11,6 @@
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>    
     <script type="text/javascript" src="{{ asset('js/chart.js') }}"></script>    
 </head>
-   
 <body class="bd">
     @include('layouts.navbar')
     <div class="container mh">
@@ -35,8 +34,9 @@
            <div class="col">
                 <div class="card">
                     <div class="card-body text-center">
-                        <h5>Total Earnings</h5>
-                        <span class="txt">$ 1.282.721,15</span>
+                        <h5>Sales</h5>
+                        <span class="txt">{{ $sales }}</span>
+                        {{-- <span class="txt">$ 1.282.721,15</span> --}}
                     </div>
                 </div>
             </div>                                    
@@ -56,7 +56,19 @@
                     </div>
                 </div>
             </div>        
-        </div>         
+        </div> 
+        <div class="row mDiv">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header text-center" style="color: black; font-size: 20px;">
+                        Earnings 
+                    </div>
+                    <div class="card-body">
+                        <div class="txt text-center">{{ $earnings }}</div>
+                    </div>
+                </div>    
+            </div>    
+        </div>        
     </div>
 </body>
 

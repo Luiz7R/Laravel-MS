@@ -93,7 +93,9 @@
         <div class="row mDiv">
             <div class="col">
                 <div class="btnn np">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal" id="createCategorie">new Category</button>
+                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createCategoryModal" id="createCategorie">
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
                 </div>
                 <div class="card">
                     <div class="card-header text-center" style="color: black; font-size: 20px;">
@@ -113,10 +115,14 @@
                                 <tr>
                                     <td class="text-center">{{ $categorie->category_name }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#uploadCategoryModal" id="uploadCategory" data-cat="{{ $categorie->id }}">Edit</button>
+                                        <button class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#uploadCategoryModal" id="uploadCategory" data-cat="{{ $categorie->id }}">
+                                            <i class="fas fa-pen-nib"></i>
+                                        </button>
                                     </td>
                                     <td class="text-center">
-                                        <button class="btn btn-danger del" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal" id="deleteCategory" data-cat="{{ $categorie->id }}">Delete</button>
+                                        <button class="btn btn-danger del" data-bs-toggle="modal" data-bs-target="#deleteCategoryModal" id="deleteCategory" data-cat="{{ $categorie->id }}">
+                                            <i class="far fa-trash-alt"></i>
+                                        </button>
                                     </td>
                                 </tr>    
                                 @endforeach

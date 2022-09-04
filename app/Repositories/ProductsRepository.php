@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -18,32 +19,21 @@ class ProductsRepository
 
     public function postProduct(Request $request)
     {
-        if ( empty(Auth::user()->id) )
-             return abort(404); 
-
-        Product::create([
+        return Product::create([
             'name' => $request->name,
             'price' => $request->price,
             'user_id' => Auth::user()->id,
             'category_id' => $request->category_id,
         ]);  
-
-        return true;
     }
 
     public function getProduct($productId)
     {
-        if ( empty(Auth::user()->id) )
-             return abort(404); 
-
         return Product::find($productId);
     }
 
     public function getProducts()
-    {
-        if ( empty(Auth::user()->id) )
-             return abort(404); 
-        
+    {   
         return Product::all();        
     }
 
@@ -55,36 +45,62 @@ class ProductsRepository
     public function updateProduct(Request $request, $productId)
     {
         if ( empty(Auth::user()->id) )
-             return abort(404); 
+        {
+            return abort(404); 
+        }
 
-        $product = Product::where('user_id', Auth::user()->id)->findOrfail($productId);
+        $product = Product::where('user_id', Auth::user()->id)->find($productId);
 
         $product->name = $request->name;
         $product->price = $request->price;
         $product->category_id = $request->category_id;
         $product->save();        
+
+        return $product;
     }
 
     public function deleteProduct($productId)
     {
-
         if ( empty(Auth::user()->id) )
-             return abort(404); 
+        {
+            return abort(404); 
+        }
         
-        $product = Product::where('user_id', Auth::user()->id)->findOrfail($productId);
-
-        $product->delete();        
+        return Product::where('user_id', Auth::user()->id)->find($productId)->delete(); 
     }
 
-    public function getProductSales()
+    public function getProductSales() : Collection
     {
         $products = Product::all();
 
         collect($products)->map(function($product) {
             $product['sales'] = $product->getProductSales();
+
+            if ( $product['sales'] ) 
+            {
+                $product['total'] = floatval($product->price) * $product['sales'];
+            }
         });
 
         return $products;
+    }
+
+    public function getTotalSales() : float
+    {
+        $products = Product::all();
+        $total = 0;
+
+        foreach($products as $product)
+        {
+            $product['sales'] = $product->getProductSales();
+
+            if ( $product['sales'] )
+            {
+                $total += floatval($product->price) * $product['sales'];
+            }  
+        }
+
+        return $total;
     }
 
 }

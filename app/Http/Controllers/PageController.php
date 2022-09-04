@@ -2,41 +2,51 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
-use App\Models\Sales;
+use App\Helpers\CurrencyFormatHelper;
 use App\Repositories\CategoriesRepository;
 use App\Repositories\ProductsRepository;
-use Illuminate\Http\Response;
+use App\Repositories\SalesRepository;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
     public $productRepository;
     public $categoryRepository;
+    public $salesRepository;
 
-    public function __construct(ProductsRepository $repository, CategoriesRepository $repositoryCat)
+    public function __construct(ProductsRepository $repository, CategoriesRepository $repositoryCat, 
+          SalesRepository $repositorySales
+    )
     {
          $this->productRepository = $repository;          
          $this->categoryRepository = $repositoryCat;
+         $this->salesRepository = $repositorySales;
     }
 
     public function Homepage()
     {
         if ( ! Auth::check() )
-            return view('/login');
+        {
+             return view('/login');
+        }
 
-          $products = $this->productRepository->getProducts();
-          $latestProducts = $this->productRepository->latest();
-          $categories = $this->categoryRepository->getCategories();
-          $sales = Sales::all();
+     $products = $this->productRepository->getProducts();
+     $latestProducts = $this->productRepository->latest();
+     $categories = $this->categoryRepository->getCategories();
+     $sales = $this->salesRepository->getSales();
+     $earnings = CurrencyFormatHelper::currency_format($this->productRepository->getTotalSales());
+     
+     $dataForReport = ['products', 'latestProducts', 'categories', 'sales', 'earnings'];
 
-        return view('home', compact('categories', 'products', 'latestProducts', 'sales'));
+        return view('home', compact($dataForReport));
     }
 
     public function Login()
     {
         if ( Auth::check() )
+        {
              return redirect('/');     
+        }
         
         return view('Login');
     }
@@ -44,7 +54,9 @@ class PageController extends Controller
     public function Register()
     {
          if ( Auth::check() )
+         {
               return redirect('/');
+         }
 
          return view('Register');
     }
@@ -52,16 +64,18 @@ class PageController extends Controller
     public function Statistics()
     {
          if ( ! Auth::check() )
+         {
               return redirect('/');
+         }
          
          return view('statistics');
     }
 
     public function getProductSales()
     {
-          $products = $this->productRepository->getProductSales();
+          $productSales = $this->productRepository->getProductSales();
 
-          return response($products, 200);
+          return response($productSales, 200);
     }
 
 }
