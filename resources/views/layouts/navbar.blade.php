@@ -1,7 +1,7 @@
 <nav class="main-menu" style="margin-top: 56px;">
     <ul>
         <li>
-            <a href="/">
+            <a href="/painel">
                 <i class="fa fa-home fa-2x"></i>
                 <span class="nav-text">
                     Dashboard

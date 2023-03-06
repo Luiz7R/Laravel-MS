@@ -19,7 +19,9 @@
                 <div class="card">
                     <div class="card-body text-center">
                         <h5>Sales Report</h5>                           
-
+                        <div class="center-loading" style="display: none;">
+                            <div class="triple-spinner"></div>
+                        </div>
                         <div>   
                             <canvas id="myChart"></canvas>
                         </div>                          
@@ -29,7 +31,11 @@
         </div>        
     </div> 
     <script>
-    
+
+    const loading = () => {
+        $('.center-loading')[0].style.display = $('.center-loading')[0].style.display === 'none' ? 'flex': 'none';
+    }
+
     getProductSales()
 
     $(function() {
@@ -42,11 +48,10 @@
 
     }); 
 
-
-
     function getProductSales()
     {
         var url = '{{ route('getProductSales') }}' 
+        loading();
         
         $.ajax({
             type: 'ajax',
@@ -58,6 +63,7 @@
             {
                 const ctx = document.getElementById('myChart').getContext('2d')
 
+                console.log(data)
                 productNames = data.map(product => {
                     return product.name
                 })
@@ -99,10 +105,11 @@
                         }
                     }
                 }
-                });                
+                });                                
             }
+        }).done(function() {
+            loading();
         })
-
     }
  </script>
 
