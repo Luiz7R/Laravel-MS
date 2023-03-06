@@ -20,9 +20,9 @@ class LoginController extends Controller
       {
             $data = $request->validated();
 
-            if ( Auth::attempt(['email' => $data['email'], 'password' => $data['password'] ]) )
-                  return redirect()->route('msHome'); // ->with('msg', 'Successfully logged');
-
+            if ( Auth::attempt(['email' => $data['email'], 'password' => $data['password'] ]) ) {
+                  return redirect('/'); // ->with('msg', 'Successfully logged');
+            }
             return back()->withErrors([
                   'email' => 'The Provided credentials do not match.',
             ]);

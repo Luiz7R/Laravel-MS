@@ -145,10 +145,6 @@
         });
     }); 
 
-    $("#createCategoryModal").click(function(){
-        // $('input[name=category_name]').val('')
-    })
-
     $('.edit').click(function(){
         var idCategory = $(this).data('cat') 
         var url = '{{ route('getCategory', ":id") }}' 

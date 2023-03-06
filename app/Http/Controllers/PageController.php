@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\CurrencyFormatHelper;
+use App\Http\Resources\ProductResource;
 use App\Repositories\CategoriesRepository;
-use App\Repositories\ProductsRepository;
+use App\Repositories\ProductsManagementRepository;
 use App\Repositories\SalesRepository;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
@@ -14,7 +16,7 @@ class PageController extends Controller
     public $categoryRepository;
     public $salesRepository;
 
-    public function __construct(ProductsRepository $repository, CategoriesRepository $repositoryCat, 
+    public function __construct(ProductsManagementRepository $repository, CategoriesRepository $repositoryCat, 
           SalesRepository $repositorySales
     )
     {
@@ -23,13 +25,12 @@ class PageController extends Controller
          $this->salesRepository = $repositorySales;
     }
 
-    public function Homepage()
+    public function HomepageA()
     {
         if ( ! Auth::check() )
         {
              return view('/login');
         }
-
      $products = $this->productRepository->getProducts();
      $latestProducts = $this->productRepository->latest();
      $categories = $this->categoryRepository->getCategories();
@@ -38,9 +39,28 @@ class PageController extends Controller
      
      $dataForReport = ['products', 'latestProducts', 'categories', 'sales', 'earnings'];
 
-        return view('home', compact($dataForReport));
+     return view('home', compact($dataForReport));
     }
 
+
+    public function Homepage() 
+    {
+        if ( ! Auth::check() ) 
+        {
+            return view('/login');
+        }
+        $products = $this->productRepository->getProducts();
+        $mostSales = $this->productRepository->getProductSales();
+
+        $categories = $this->categoryRepository->getCategories();
+        $latestProducts = $this->productRepository->latest();
+
+        $dataForReport = ['products', 'categories', 'mostSales', 'latestProducts'];
+
+        return view('homeclient', compact($dataForReport));
+
+
+    }
     public function Login()
     {
         if ( Auth::check() )
@@ -48,7 +68,7 @@ class PageController extends Controller
              return redirect('/');     
         }
         
-        return view('Login');
+        return view('login');
     }
 
     public function Register()
@@ -74,8 +94,7 @@ class PageController extends Controller
     public function getProductSales()
     {
           $productSales = $this->productRepository->getProductSales();
-
-          return response($productSales, 200);
+          return new Response(new ProductResource($productSales), 200);
     }
 
 }
