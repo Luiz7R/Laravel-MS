@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Sales;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SalesRepository
@@ -18,9 +17,7 @@ class SalesRepository
     public function getSales()
     {
         if ( empty(Auth::user()->id) )
-        {
             return abort(404);
-        }
 
         return  Sales::all()->count();
     }
