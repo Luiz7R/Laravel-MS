@@ -2,23 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Categorie;
-use App\Models\Product;
-use App\Repositories\CategoriesRepository;
-use App\Repositories\ProductsRepository;
-use Illuminate\Http\Request;
+use App\Repositories\ProductRepository;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
-class ProductsController extends Controller
+class ProductsManagementController extends Controller
 {
      public $repository;
-     public $repositoryCat;
 
-     public function __construct(ProductsRepository $repository,CategoriesRepository $repositoryCat)
+     public function __construct(ProductRepository $repository)
      {
-          $this->repository = $repository;          
-          $this->repositoryCat = $repositoryCat;
+          $this->repository = $repository;
      }
 
      public function ProductsPage()
@@ -30,36 +23,18 @@ class ProductsController extends Controller
 
             $categories = $this->getCategories();
             $products = $this->getProducts();
+            $productsPromo = $this->getPromoProducts();
 
             return view('products', compact('categories', 'products'));
-     }
-
-     public function postProduct(Request $request)
-     {
-          if ( empty(Auth::user()->id) )
-          {
-              return abort(404);  
-          }
-
-          $this->repository->postProduct($request);
-
-          return redirect()->route('productsPage');
      }
 
      public function getProducts()
      {
           if ( empty(Auth::user()->id) )
-          {
               return abort(404); 
-          }
 
           return $this->repository->getProducts();
-     }
-
-     public function getCategories()
-     {
-          return $this->repositoryCat->getCategories();
-     }     
+     }    
 
      public function getProduct($productId)
      {
@@ -69,27 +44,5 @@ class ProductsController extends Controller
           }
 
           return $this->repository->getProduct($productId);
-     }
-
-     public function updateProduct(Request $request, $productId)
-     {
-          $request->merge(['product_id' => $productId]);
-
-          $this->validate($request, [
-               'product_id' => 'required|exists:products,id'
-          ]);
-
-          return $this->repository->updateProduct($request, $productId);
-     }
-
-     public function deleteProduct(Request $request, $productId)
-     {
-          $request->merge(['product_id' => $productId]);
-
-          $this->validate($request, [
-               'product_id' => 'required|exists:products,id'
-          ]);
-
-          return $this->repository->deleteProduct($productId);
-     }
+     } 
 }

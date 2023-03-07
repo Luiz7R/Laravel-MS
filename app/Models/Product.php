@@ -32,4 +32,9 @@ class Product extends Model
     {
         return $this->sales()->count();      
     }
+
+    public function promo()
+    {
+        return $this->hasOne(ProductPromo::class);
+    }
 }

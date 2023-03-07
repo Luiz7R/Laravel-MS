@@ -18,141 +18,28 @@
 <body class="bd">
     @include('layouts.navbar')
     <div class="container mh">
-        <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModal" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">New Product</h5>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <form method="POST" action="{{ route('postProduct') }}">
-                    @csrf
-                    @method('POST')                    
-                    <div class="mb-3">
-                        <label for="categorias" class="col-form-label">Categorias:</label>
-                        <select class="form-control" name="category_id" id="categorias">
-                            @foreach ( $categories as $categorie)
-                                    <option value="{{$categorie->id}}"> {{$categorie->category_name}} </option>
-                            @endforeach
-                        </select>                      
-                    </div>  
-                    <div class="mb-3">
-                        <label for="name" class="col-form-label">Name:</label>
-                        <input type="text" class="form-control" id="name" name="name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="price" class="col-form-label">Price:</label>
-                        <input type="text" class="form-control" id="price" name="price">
-                    </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Create</button>
-                    </div>
-                </form>
-            </div>
-          </div>
-        </div>
-        <div class="modal fade" id="uploadProductModal" tabindex="-1" aria-labelledby="uploadProductModal" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Upload Product</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="card cd-products">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="produtos-tab" data-bs-toggle="tab"
+                        data-bs-target="#produtos-tab-pane" type="button" role="tab" 
+                        aria-controls="produtos-tab-pane" aria-selected="true">Products</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="registerPromo-tab" data-bs-toggle="tab" 
+                  data-bs-target="#registerPromo-tab-pane" type="button" role="tab" 
+                  aria-controls="registerPromo-tab-pane" aria-selected="false">Register Promotion</button>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="produtos-tab-pane" role="tabpanel" aria-labelledby="produtos-tab" tabindex="0">
+                    @include('layouts.listProducts.list-products')
                 </div>
-                <div class="modal-body">
-                  <form method="PUT" id="updateProduct">
-                      @csrf
-                      @method('PUT')                    
-                      <div class="mb-3">
-                          <label for="categorias" class="col-form-label">Categories:</label>
-                          <select class="form-control" name="category_id" id="categorias">
-                              @foreach ( $categories as $categorie)
-                                      <option value="{{$categorie->id}}"> {{$categorie->category_name}} </option>
-                              @endforeach
-                          </select>                      
-                      </div>  
-                      <div class="mb-3">
-                          <label for="name" class="col-form-label">Name:</label>
-                          <input type="text" class="form-control" id="name" name="name">
-                      </div>
-                      <div class="mb-3">
-                          <label for="price" class="col-form-label">Price:</label>
-                          <input type="text" class="form-control" id="price" name="price">
-                      </div>
-                      </div>
-                      <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Save</button>
-                      </div>
-                  </form>
-              </div>
+                <div class="tab-pane fade" id="registerPromo-tab-pane" role="tabpanel" aria-labelledby="registerPromo-tab" tabindex="0">
+                    @include('layouts.registerPromo.register-promo')
+                </div>
             </div>
         </div>
-
-        <div class="modal" id="deleteProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="titleModalDeleteProduct">Delete Product</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
-                    </div>
-                    <div class="modal-body" style="">
-                        Are you sure you want to delete the product?
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-danger" id="btnDeleteProduct">Delete</button>
-                    </div>  
-                </div>     
-            </div>    
-        </div>
-
-        <div class="row mDiv">
-            <div class="col">
-                <div class="btnn np">
-                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProductModal" id="createProduct">
-                        <i class="fas fa-plus-circle"></i>
-                    </button>
-                </div>
-                <div class="card">
-                    <div class="card-header text-center" style="color: black; font-size: 20px;">
-                        Products
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-dark table-striped">
-                            <thead>
-                                <tr>
-                                    <td class="text-center">Name</td>
-                                    <td class="text-center">Price</td>
-                                    <td class="text-center">Edit</td>
-                                    <td class="text-center">Delete</td>
-                                </tr>
-                            </thead>  
-                            <tbody>                      
-                                @foreach ( $products as $product )
-                                <tr>
-                                    <td class="text-center">{{ $product->name }}</td>
-                                    <td class="text-center">{{ $product->price }}</td>
-                                    <td class="text-center">
-                                        <button class="btn btn-primary edit" data-bs-toggle="modal" data-bs-target="#uploadProductModal" id="uploadProduct" data-pro="{{ $product->id }}">
-                                            <i class="fas fa-pen-nib"></i>
-                                        </button>
-                                    </td>
-                                    <td class="text-center">
-                                        <button class="btn btn-danger del" data-bs-toggle="modal" data-bs-target="#deleteProductModal" id="deleteProduct" data-pro="{{ $product->id }}">
-                                            <i class="far fa-trash-alt"></i>
-                                        </button>
-                                    </td>
-                                </tr>    
-                                @endforeach
-                            </tbody>
-                        </table>                        
-                    </div>
-                </div>
-            </div>  
-        </div>        
     </div>
     
     <script>

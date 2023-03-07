@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\CategoriesController;
+use App\Http\Controllers\CategoriesManagementController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\ProductsManagementController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,29 +17,46 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::middleware(['accesspanel'])->group(function($route) {
+    Route::get('/painel', [PageController::class, 'HomepageA'])->name('msHomeAdm');
+});
 
-Route::get('/', [PageController::class, 'Homepage'])->name('msHome');
 Route::get('/login', [PageController::class, 'Login'])->name('msPageLogin');
 Route::get('/register', [PageController::class, 'Register'])->name('msPageReg');
-Route::get('/statistics', [PageController::class, 'Statistics'])->name('msPageStatistics');
 
 Route::post('/ms/register', [RegisterController::class, 'register'])->name('msRegister');
 Route::post('/ms/auth/login', [LoginController::class, 'login'])->name('msLogin');
 Route::post('/ms/logout', [LoginController::class, 'logout'])->name('msLogout');
+Route::get('', [PageController::class, 'Homepage'])->name('msHome');
 
-route::get('/api/v1/product/sales', [PageController::class, 'getProductSales'])->name('getProductSales');
+# Product Routes
+Route::get('/product/{productId}', [ProductsController::class, 'getProduct'])->name('getProductWE');
+Route::get('/products', [ProductsController::class, 'getProducts'])->name('getProductsWE');
 
-Route::get('/products', [ProductsController::class, 'ProductsPage'])->name('productsPage');
-Route::get('/api/v1/product/{productId}', [ProductsController::class, 'getProduct'])->name('getProduct');
-Route::get('/api/v1/products', [ProductsController::class, 'getProducts'])->name('getProducts');
-Route::post('/api/v1/c/product', [ProductsController::class, 'postProduct'])->name('postProduct');
-Route::put('/api/v1/u/product/{productId}', [ProductsController::class, 'updateProduct'])->name('updateProduct');
-Route::delete('/api/v1/d/product/{productId}', [ProductsController::class, 'deleteProduct'])->name('deleteProduct');
+# Categories Route
+Route::get('/categories', [CategoriesController::class, 'getCategories'])->name('getCategoriesWE');
 
+Route::group(['middleware' => 'admin'], function($route) {
+    $route->get('/products', [ProductsManagementController::class, 'ProductsPage'])->name('productsPage');
+    $route->get('/categories', [CategoriesManagementController::class, 'CategoriesPage'])->name('categoriesPage');
+    $route->get('/statistics', [PageController::class, 'Statistics'])->name('msPageStatistics');
 
-Route::get('/categories', [CategoriesController::class, 'CategoriesPage'])->name('categoriesPage');
-Route::get('/api/v1/category/{categoryId}', [CategoriesController::class, 'getCategory'])->name('getCategory');
-Route::get('/api/v1/categories', [CategoriesController::class, 'getCategories'])->name('getCategories');
-Route::post('/api/v1/c/category', [CategoriesController::class, 'postCategory'])->name('postCategory');
-Route::put('/api/v1/u/category/{categoryId}', [CategoriesController::class, 'updateCategory'])->name('updateCategory');
-Route::delete('/api/v1/d/category/{categoryId}', [CategoriesController::class, 'deleteCategory'])->name('deleteCategory');
+    Route::group(['prefix' => '/api/v1'], function($route) {
+        $route->get('/product/sales', [PageController::class, 'getProductSales'])->name('getProductSales');
+        $route->get('/product/{productId}', [ProductsManagementController::class, 'getProduct'])->name('getProduct');
+        $route->get('/products', [ProductsManagementController::class, 'getProducts'])->name('getProducts');
+        $route->post('/c/product', [ProductsManagementController::class, 'postProduct'])->name('postProduct');
+        $route->put('/u/product/{productId}', [ProductsManagementController::class, 'updateProduct'])->name('updateProduct');
+        $route->delete('/d/product/{productId}', [ProductsManagementController::class, 'deleteProduct'])->name('deleteProduct');
+
+        $route->group(['prefix' => 'promo'], function($route) {
+            $route->post('/c/product', [ProductsManagementController::class, 'postPromoProduct'])->name('postPromoProduct');
+        });
+
+        $route->get('/category/{categoryId}', [CategoriesManagementController::class, 'getCategory'])->name('getCategory');
+        $route->get('/categories', [CategoriesManagementController::class, 'getCategories'])->name('getCategories');
+        $route->post('/c/category', [CategoriesManagementController::class, 'postCategory'])->name('postCategory');
+        $route->put('/u/category/{categoryId}', [CategoriesManagementController::class, 'updateCategory'])->name('updateCategory');
+        $route->delete('/d/category/{categoryId}', [CategoriesManagementController::class, 'deleteCategory'])->name('deleteCategory');   
+    });
+});
