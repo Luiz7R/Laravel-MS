@@ -22,20 +22,21 @@
 
 ## Map of Project:
 
-    * Dashboard Page
-        * Statistics
-            * Sales
-        * Graphs
-   * Promotions:
-        * Create, List Edit and Delete Promotions.
-    * Users
-        * Login, Register
-        * Tests
-    * Products
-        * Create, List, Edit and Delete.
-        * Search Products
-        * Products separated by releases, categories, promotions and best sellers
-        * Tests
-    * Categories 
-        * Create, List, Edit and Delete.
-        * Tests
+  ### Dashboard Page:
+  * Statistics
+  * Sales
+  * Graphs
+     
+  ### Promotions:
+  * Create, List Edit and Delete Promotions.
+  ### Users:
+   * Login, Register
+   * Tests
+  ### Products:
+   * Create, List, Edit and Delete.
+   * Search Products
+   * Products separated by releases, categories, promotions and best sellers
+   * Tests
+  ### Categories 
+   * Create, List, Edit and Delete.
+   * Tests
