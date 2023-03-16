@@ -6,9 +6,12 @@
                 <i class="fas fa-plus-circle"></i>
             </button>
         </div>
+        @include('layouts.loading.loading-compo')
         <div class="card">
             <div class="card-header text-center" style="color: black; font-size: 20px;">
                 Promotions Registered
+            </div>
+            <div>
             </div>
             <div class="card-body">
                 <table class="table table-dark table-striped">

@@ -20,8 +20,8 @@ class ProductPromo extends Model
         'user_id',
         'product_id',
         'category_id',
-        'start-date-promo',
-        'end-date-promo'
+        'start_date_promo',
+        'end_date_promo'
     ];  
 
     public function product()

@@ -18,18 +18,18 @@ class ProductsManagementController extends Controller
           $this->repositoryCat = $repositoryCat;
      }
 
-     public function ProductsPage()
+     public function manageProducts()
      {
             if ( ! Auth::check() )
                  return redirect()->route('msPageLogin');  
 
-            $categories = $this->getCategories();
-            $products = $this->getProducts();
-            $productsPromo = $this->getPromoProducts();
+            $categories = $this->repositoryCat->getCategories();
+            $products = $this->repository->getProducts();
+            $productsWithoutPromo = $this->repository->getProductsWithoutPromo();
+            $productsPromo = $this->repository->getPromoProducts();
 
-            return view('products', compact('categories', 'products', 'productsPromo'));
+            return view('manageProducts', compact('categories', 'products', 'productsWithoutPromo', 'productsPromo'));
      }
-
      public function postProduct(Request $request)
      {
           if ( empty(Auth::user()->id) )
@@ -47,30 +47,8 @@ class ProductsManagementController extends Controller
 
           $this->repository->postPromoProduct($request);
 
-          return redirect()->route('productsPage');
+          return redirect()->route('getProducts');
      }
-
-
-     public function getProducts()
-     {
-          if ( empty(Auth::user()->id) )
-              return abort(404); 
-
-          return $this->repository->getProducts();
-     }
-
-     public function getPromoProducts()
-     {
-          if ( empty(Auth::user()->id) )
-              return abort(404); 
-
-          return $this->repository->getPromoProducts();
-     }
-
-     public function getCategories()
-     {
-          return $this->repositoryCat->getCategories();
-     }     
 
      public function getProduct($productId)
      {
@@ -79,6 +57,14 @@ class ProductsManagementController extends Controller
 
           return $this->repository->getProduct($productId);
      }
+
+     public function getPromoProducts()
+     {
+          if ( empty(Auth::user()->id) )
+               return abort(404); 
+
+          return $this->repository->getPromoProducts(); 
+     }   
 
      public function updateProduct(Request $request, $productId)
      {

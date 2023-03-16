@@ -13,44 +13,8 @@
 </head>
 
 <body style="width: 100%; overflow-x: hidden;">
-    <div class="main-bar">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                @include('layouts.sidebaruser')
-                <div class="container-fluid sch-br-hym">
-                    <a class="navbar-brand" href="#" style="color: white;">WYN</a>
-                    <div class="collapse navbar-collapse" id="navbarScroll">
-                        <div id="searchBarWYN">
-                            <form class="d-flex">
-                                <input class="form-control me-2 input-sc-bar" type="search" placeholder="Search our Products" aria-label="Search">
-                                <button class="btn btn-primary" type="submit">Search</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-    <div class="sc-yqins frqwe">
-        <div class="sc-wyqnX woeqn">
-            <nav class="er-qwEik yIieaqw">
-                <div class="sc-ueqnd Kmied">
-                    <span>Categorias</span>
-                </div>
-                <a href="/lancamentos" id="lancamentosMenuSuperior" class="sc-ueqnd Kmied">Lançamentos</a>
-                <div class="sc-qYoend lmqup"></div>
-                <a href="/ofertas" id="ofertasMenuSuperior" class="sc-ueqnd Kmied">Eletrônicos</a>
-                <div class="sc-qYoend lmqup"></div>
-                <a href="/ofertas" id="ofertasMenuSuperior" class="sc-ueqnd Kmied">Oferta Do Dia</a>
-                <div class="sc-qYoend lmqup"></div>
-                <a href="/ofertas" id="ofertasMenuSuperior" class="sc-ueqnd Kmied">Pc Gamer</a>
-                <div class="sc-qYoend lmqup"></div>
-                <a href="/ofertas" id="ofertasMenuSuperior" class="sc-ueqnd Kmied">Consoles</a>
-                <div class="sc-qYoend lmqup"></div>
-                <a href="/ofertas" id="ofertasMenuSuperior" class="sc-ueqnd Kmied">App</a>
-            </nav>
-        </div>
-    </div>
+    @include('layouts.main.mainbar')
+    @include('layouts.navbar-items')
     <div class="mdiv-hym">
     <main class="mn-content">
         <div class="its-cont" style="background-color: black;">
@@ -84,20 +48,22 @@
                 <div class="prod-itens">
                     <h3 class="cat-title text-center">Promoção</h3>
                     <div class="row row-margin">
-                        {{-- @foreach ( $productPromotion as $productPromo )
+                        @foreach ( $productPromotion as $productPromo )
                         <div class="col-md-2 col-product">
                             <div class="card product-card-i">
                                 <div class="card-body">
-                                    <div class="product">
+                                    <div>
                                         <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                        <h3>{{ $productPromo->name }}</h3>
-                                        <p>{{ currency_format($productPromo->price) }}</p>
+                                        <div class="product">
+                                            <h5>{{ $productPromo->product->name }}</h5>
+                                        </div>
+                                        <p>{{ currency_format($productPromo->promo_price) }}</p>
                                         <button class="add-to-cart btn btn-primary" onclick="addToCart($productPromo)">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @endforeach --}}
+                        @endforeach
                     </div>
                     <div class="most-sale">
                         <h3 class="cat-title-sales text-center">Mais Vendidos</h3>
@@ -106,9 +72,11 @@
                             <div class="col-md-2 col-product">
                                 <div class="card product-card-i">
                                     <div class="card-body">
-                                        <div class="product">
+                                        <div>
                                             <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                            <h3>{{ $sold->name }}</h3>
+                                            <div class="product">
+                                                <h5>{{ $sold->name }}</h5>
+                                            </div>
                                             <p>{{ currency_format($sold->price) }}</p>
                                             <button class="add-to-cart btn btn-primary" onclick="addToCart($sold)">Add to Cart</button>
                                         </div>
@@ -121,33 +89,8 @@
                     </div>
                 </div>  
             </div>        
-            {{-- <img src={{ asset('img/prodc-img.jpg') }} alt="" /> --}}
-            
-            {{-- {{ $products }} --}}
         </div>
     </main>
     </div>
 </body>
-
-<script>
-    $(document).ready(function() {
-        $('.sidebarBtn').click(function() {
-            $('.sidebar-hym').toggleClass('active');
-            $('.sidebarBtn').toggleClass('toggle');
-        })
-    })
-
-    function Nav() {
-  var width = document.getElementById("mySidenav").style.width;
-  if (width === "0px" || width == "") {
-    document.getElementById("mySidenav").style.width = "250px";
-    $('.animated-icon').toggleClass('open');
-  }
-  else {
-    document.getElementById("mySidenav").style.width = "0px";
-    $('.animated-icon').toggleClass('open');
-  }
-}
-Nav()
-</script>
 </html>

@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="{{ asset('css/styletopbar.css') }}">
 <script src="{{ asset('js/products/index.js') }}"></script>
 <div class="modal fade" id="createProductPromoModal" tabindex="-1" aria-labelledby="createProductPromoModal" aria-hidden="true">
     <div class="modal-dialog">
@@ -24,7 +23,7 @@
                   <label for="name-promo-product" class="col-form-label">Name:</label>
                   <select class="form-control" name="product_id" id="promo_product_select">
                     <option value="0" selected>--- Select ---</option>
-                    @foreach ( $products as $product)
+                    @foreach ( $productsWithoutPromo as $product)
                             <option value="{{$product->id}}">{{$product->name}}</option>
                     @endforeach
                 </select>   
@@ -53,7 +52,6 @@
           </form>
       </div>
     </div>
-  </div>
   <div class="modal fade" id="uploadProductModal" tabindex="-1" aria-labelledby="uploadProductModal" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -108,3 +106,4 @@
           </div>     
       </div>    
   </div>
+</div>

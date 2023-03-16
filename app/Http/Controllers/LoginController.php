@@ -21,7 +21,7 @@ class LoginController extends Controller
             $data = $request->validated();
 
             if ( Auth::attempt(['email' => $data['email'], 'password' => $data['password'] ]) ) {
-                  return redirect('/'); // ->with('msg', 'Successfully logged');
+                  return Auth::user()->user_type == 1 ? redirect('/painel') : redirect('/');
             }
             return back()->withErrors([
                   'email' => 'The Provided credentials do not match.',

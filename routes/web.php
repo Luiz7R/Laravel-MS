@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CategoriesManagementController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\ProductsManagementController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Support\Facades\Route;
@@ -31,15 +33,18 @@ Route::get('', [PageController::class, 'Homepage'])->name('msHome');
 
 # Product Routes
 Route::get('/product/{productId}', [ProductsController::class, 'getProduct'])->name('getProductWE');
-Route::get('/products', [ProductsController::class, 'getProducts'])->name('getProductsWE');
-
-# Categories Route
-Route::get('/categories', [CategoriesController::class, 'getCategories'])->name('getCategoriesWE');
+Route::get('/getProducts', [ProductsController::class, 'getProducts'])->name('getProductsWE');
+Route::get('/products', [ProductsController::class, 'ProductsPage'])->name('ProductsPage');
+Route::get('/releases', [ProductsController::class, 'releases'])->name('releases');
+Route::get('/promotions', [ProductsController::class, 'promotions'])->name('promotions');
+Route::get('/tennis', [ProductsController::class, 'tennis'])->name('tennis');
+Route::get('/slippers', [ProductsController::class, 'slippers'])->name('slippers');
+Route::get('/productsSearch/{msSearch}', [ProductsController::class, 'productsSearch'])->name('msSearch');
 
 Route::group(['middleware' => 'admin'], function($route) {
-    $route->get('/products', [ProductsManagementController::class, 'ProductsPage'])->name('productsPage');
-    $route->get('/categories', [CategoriesManagementController::class, 'CategoriesPage'])->name('categoriesPage');
-    $route->get('/statistics', [PageController::class, 'Statistics'])->name('msPageStatistics');
+    $route->get('/painel/products', [ProductsManagementController::class, 'manageProducts'])->name('manageProducts');
+    $route->get('/painel/categories', [CategoriesManagementController::class, 'manageCategories'])->name('manageCategories');
+    $route->get('/painel/statistics', [PageController::class, 'Statistics'])->name('msPageStatistics');
 
     Route::group(['prefix' => '/api/v1'], function($route) {
         $route->get('/product/sales', [PageController::class, 'getProductSales'])->name('getProductSales');

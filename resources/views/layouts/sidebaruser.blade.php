@@ -10,12 +10,15 @@
                     </svg>  
                 </a>
             </div>
-            <div class="mn-hm-ls">
+            <div class="mn-hm-ls" style="margin-top: 20px;">
                 <a href="#"><li><span class="txtSdbar">Conta</span></li></a>
                 <a href="#"><li><span class="txtSdbar">Pedidos</span></li></a>
                 <a href="#"><li><span class="txtSdbar">Favoritos</span></li></a>
                 <a href="#"><li><span class="txtSdbar">Novos Produtos</span></li></a>
                 <a href="#"><li><span class="txtSdbar">Mais Procurados</span></li></a>
+                @if (Auth::user()->user_type) 
+                    <a href="/painel"><li><span class="txtSdbar">Painel</span></li></a>
+                @endif 
             </div>
         </ul>
         <div class="sidebar-hym1">

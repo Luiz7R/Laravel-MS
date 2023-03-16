@@ -9,7 +9,7 @@
             </a>
         </li>
         <li>
-            <a href="/products">
+            <a href="/painel/products">
                 <i class="fa fa-store fa-2x"></i>
                 <span class="nav-text">
                     Products
@@ -17,7 +17,7 @@
             </a>
         </li> 
         <li>
-            <a href="/categories">
+            <a href="/painel/categories">
                 <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">
                     Categories
@@ -25,7 +25,7 @@
             </a>
         </li>                        
         <li>
-            <a href="/statistics">
+            <a href="/painel/statistics">
                 <i class="fa fa-bar-chart-o fa-2x"></i>
                 <span class="nav-text">
                     Graphs and Statistics
@@ -46,14 +46,14 @@
 </nav>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-         <a class="navbar-brand" href="/">Manage</a>
+         <a class="navbar-brand" href="/painel">Manage</a>
          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
          </button>              
          <div class="collapse navbar-collapse" id="navbarNav">
              <ul class="navbar-nav">
                  <li class="nav-item">
-                     <a class="nav-link active" aria-current="page" href="">Home</a>
+                     <a class="nav-link active" aria-current="page" href="/">Home</a>
                  </li>
              </ul>
          </div>

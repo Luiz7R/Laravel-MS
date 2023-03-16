@@ -250,6 +250,11 @@ svg {
     transform: scale(1.1);
 }
 
+.product {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .cat-title {
     color:#04c796;
     background-color: rgb(2, 52, 75);

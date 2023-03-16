@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Product;
 use App\Models\ProductPromo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +37,8 @@ class ProductsManagementRepository
             'user_id' => Auth::user()->id,
             'product_id' => $request->product_id,
             'category_id' => $request->category_id,
-            'start-date-promo' => $request->start_date_promo,
-            'end-date-promo' => $request->end_date_promo,
+            'start_date_promo' => $request->start_date_promo,
+            'end_date_promo' => $request->end_date_promo,
         ]);  
     }
 
@@ -48,17 +49,24 @@ class ProductsManagementRepository
 
     public function getProducts()
     {   
-        return $this->model->all();        
+        return $this->model->all();   
+    }
+
+    public function getProductsWithoutPromo()
+    {   
+        $allProductsPromo = $this->promoProduct->pluck('product_id')->all(); 
+        return $this->model->whereNotIn('id', $allProductsPromo)->get();
     }
 
     public function getPromoProducts()
     {   
-        return $this->promoProduct->all();        
+        $ActualDateTime = now('America/Sao_Paulo')->format('Y-m-d H:i:s');
+        return $this->promoProduct->where('end_date_promo', '>=', $ActualDateTime)->get();
     }
 
     public function latest()
     {
-        return  $this->model->latest()->take(5)->get();
+        return $this->model->latest()->take(5)->get();
     }
 
     public function updateProduct(Request $request, $productId)
@@ -118,4 +126,13 @@ class ProductsManagementRepository
         return $totalSales;
     }
 
+    public function getTennisProducts()
+    {   
+        return $this->model->where('category_id',2)->get(); 
+    }
+
+    public function getSlipperProducts()
+    {   
+        return $this->model->where('category_id',1)->get(); 
+    }
 }

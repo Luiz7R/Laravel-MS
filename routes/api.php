@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductsManagementController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::group(['middleware' => 'auth:sanctum'], function($route) {
+    $route->get('/productsData', [ProductsManagementController::class, 'ProductsPage1'])->name('productsPage');
+    $route->get('/promoProducts', [ProductsManagementController::class, 'getPromoProducts'])->name('promoProducts');
 });

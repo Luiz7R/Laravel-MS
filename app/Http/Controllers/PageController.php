@@ -50,12 +50,13 @@ class PageController extends Controller
             return view('/login');
         }
         $products = $this->productRepository->getProducts();
+        $productPromotion = $this->productRepository->getPromoProducts();
         $mostSales = $this->productRepository->getProductSales();
 
         $categories = $this->categoryRepository->getCategories();
         $latestProducts = $this->productRepository->latest();
 
-        $dataForReport = ['products', 'categories', 'mostSales', 'latestProducts'];
+        $dataForReport = ['products', 'categories', 'mostSales', 'latestProducts', 'productPromotion'];
 
         return view('homeclient', compact($dataForReport));
 

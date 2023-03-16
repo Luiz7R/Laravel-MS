@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductRepository
 {
+    public $model;
     public function __construct()
     {
         $this->model = new Product();
@@ -26,17 +27,17 @@ class ProductRepository
 
     public function getProduct($productId)
     {
-        return Product::find($productId);
+        return $this->model->find($productId);
     }
 
     public function getProducts()
     {   
-        return Product::all();        
+        return $this->model->all();        
     }
 
     public function latest()
     {
-        return Product::latest()->take(5)->get();
+        return $this->model->latest()->take(5)->get();
     }
 
     public function updateProduct(Request $request, $productId)
@@ -46,7 +47,7 @@ class ProductRepository
             return abort(404); 
         }
 
-        $product = Product::findOrFail($productId);
+        $product = $this->model->findOrFail($productId);
 
         $product->name = $request['name'];
         $product->price = $request->price;
@@ -63,12 +64,12 @@ class ProductRepository
             return abort(404); 
         }
         
-        return Product::where('user_id', Auth::user()->id)->find($productId)->delete(); 
+        return $this->model->where('user_id', Auth::user()->id)->find($productId)->delete(); 
     }
 
     public function getProductSales() : Collection
     {
-        $products = Product::all();
+        $products = $this->model->all();
 
         collect($products)->map(function($product) {
             $product['sales'] = $product->getProductSales();
@@ -84,7 +85,7 @@ class ProductRepository
 
     public function getTotalSales() : float
     {
-        $products = Product::all();
+        $products = $this->model->all();
         $total = 0;
 
         foreach($products as $product)
@@ -98,6 +99,10 @@ class ProductRepository
         }
 
         return $total;
+    }
+
+    public function productSearch($payloadSearch) {
+        return $this->model->where('name', 'like', '%'.$payloadSearch.'%')->get();
     }
 
 }

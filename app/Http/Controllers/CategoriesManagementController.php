@@ -8,19 +8,18 @@ use Illuminate\Support\Facades\Auth;
 
 class CategoriesManagementController extends Controller
 {
+    public $repository;
+    
     public function __construct(CategoriesRepository $repository)
     {
          $this->repository = $repository;
     }
 
-    public function CategoriesPage()
+    public function manageCategories()
     {
-           if ( ! Auth::check() )
-               return redirect()->route('msPageLogin');  
+        $categories = $this->repository->getCategories();  
 
-           $categories = $this->getCategories();
-
-           return view("categories", compact("categories") ); 
+        return view('manageCategories', compact('categories'));
     }
 
     public function getCategory($categoryId)
