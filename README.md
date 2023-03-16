@@ -27,7 +27,7 @@
   * Sales
   * Graphs
      
-  ### Promotions:
+  ### Product Promotions:
   * Create, List Edit and Delete Promotions.
   ### Users:
    * Login, Register
