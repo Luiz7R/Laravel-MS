@@ -31,8 +31,3 @@ function fillProductAttrs(id) {
         }
     });
 }
-
-function addToCart(item) {
-    console.log(item)
-    console.log('adicionado com sucesso')
-}

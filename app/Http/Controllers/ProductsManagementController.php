@@ -37,7 +37,7 @@ class ProductsManagementController extends Controller
 
           $this->repository->postProduct($request);
 
-          return redirect()->route('productsPage');
+          return redirect()->route('manageProducts');
      }
 
      public function postPromoProduct(Request $request)
@@ -47,7 +47,7 @@ class ProductsManagementController extends Controller
 
           $this->repository->postPromoProduct($request);
 
-          return redirect()->route('getProducts');
+          return redirect()->route('manageProducts');
      }
 
      public function getProduct($productId)

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\BasketRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
@@ -14,6 +15,10 @@ class BasketController extends Controller
     }
 
     public function listBasket() {
+
+        if ( ! Auth::user() )
+            return redirect()->route('msPageLogin');
+
         $basketItems = $this->repository->listBasket();
 
         return view('layouts.basket.basket', compact('basketItems'));

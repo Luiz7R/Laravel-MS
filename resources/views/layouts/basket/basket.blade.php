@@ -74,7 +74,14 @@
         <div class="card-footer">
           <div class="buttons">
             <button class="btn-basket back" onclick="goBack()">Go Back</button>
-            <button type="button" class="btn-basket checkout">Go to Checkout</button>
+            <form action="{{ route('checkoutPage') }}" method="get">
+              @csrf
+              @method('GET')
+              <input type="hidden" name="fromBasketPage" value="1">
+              <button type="submit" class="btn-basket checkout">
+                Go to Checkout
+              </button>
+            </form>
           </div>
         </div>
     </div>
@@ -96,7 +103,7 @@
             window.history.back();
           }
           function goToCheckout() {
-            window.location.href = "https://example.com/checkout";
+            window.location.href = "{{ route('checkoutPage') }}";
           }
 
           function updateValue(id, quantidade) {
@@ -132,7 +139,7 @@
           });
 
           $('.del').click(function(){
-              var idProductBasket = $(this).data("cat")
+              var idProductBasket = $(this).data("product")
               var url = '{{ route('removeProduct', ":id") }}'
               url = url.replace(':id', idProductBasket)
 

@@ -17,30 +17,36 @@
     <div class="products-container" style="margin-top: 1%;">
         <div class="prod-itens">
             <h3 class="cat-title text-center">Promotions</h3>
-            <div class="row row-margin">
-                @foreach ( $productsPromo as $productPromo )
-                <div class="col-md-2 col-product">
-                    <div class="card product-card-i" style="margin-top: 1rem;">
-                        <div class="card-body">
-                            <div>
-                                <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                <div class="product">
-                                    <h5>{{ $productPromo->product->name }}</h5>
+            @foreach ( $productsPromo as $productPromo )
+                <form action="{{ route('postProductBasket') }}" method="post">
+                    @csrf
+                    @method('POST')
+                    <input type="hidden" name="product" value="{{ $productPromo->id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    
+                    <div class="container">
+                        <div class="row">
+                            <div class="col col-md-3 col-lg-3">
+                                <div class="col-product">
+                                    <div class="card product-card-i" style="margin-top: 1rem;">
+                                        <div class="card-body">
+                                            <div>
+                                                <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
+                                                <div class="product">
+                                                    <h5>{{ $productPromo->product->name }}</h5>
+                                                </div>
+                                                <p>{{ currency_format($productPromo->promo_price) }}</p>
+                                                    <button type="submit" class="add-to-cart btn btn-primary">Add to Cart</button>
+                                                <form>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>{{ currency_format($productPromo->promo_price) }}</p>
-                                <form action="{{ route('postProductBasket') }}" method="post">
-                                    @csrf
-                                    @method('POST')
-                                    <input type="hidden" name="product">
-                                    <input type="hidden" name="quantity">
-                                    <button type="submit" class="add-to-cart btn btn-primary" onclick="addToCart($productPromo)">Add to Cart</button>
-                                <form>
                             </div>
                         </div>
                     </div>
-                </div>
-                @endforeach
-            </div>
+                </form>
+            @endforeach
         </div>
     </div>
 </body>

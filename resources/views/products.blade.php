@@ -16,61 +16,62 @@
         @include('layouts.navbar-items')
         <div class="products-container" style="margin-top: 1%;">
             <div class="prod-itens">
-                <h3 class="cat-title text-center">Promoção</h3>
-                <div class="row row-margin">
+                <h3 class="cat-title text-center">Promotions</h3>
+                <div class="row">
                     @foreach ( $productsPromo as $productPromo )
-                    <div class="col-md-2 col-product">
-                        <div class="card product-card-i">
-                            <div class="card-body">
-                                <div>
-                                    <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                    <div class="product">
-                                        <h5>{{ $productPromo->product->name }}</h5>
+                            <div class="col-sm-6 col-md-3 col-lg-3 col-product">
+                                <div class="card product-card-i">
+                                    <div class="card-body">
+                                        <div>
+                                            <form action="{{ route('postProductBasket') }}" method="POST" id="submit-cart">
+                                                @csrf
+                                                @method('POST')
+                                                <input type="hidden" name="product" value="{{ $productPromo->product->id }}">
+                                                <input type="hidden" name="quantity" value="1">
+
+                                                <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
+                                                <div class="product">
+                                                    <h5>{{ $productPromo->product->name }}</h5>
+                                                </div>
+                                                <p>{{ currency_format($productPromo->promo_price) }}</p>
+                                                <button type="submit" class="add-to-cart btn btn-primary">Add to Cart</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                    <p>{{ currency_format($productPromo->promo_price) }}</p>
-                                    <button class="add-to-cart btn btn-primary" onclick="addToCart($productPromo)">Add to Cart</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                     @endforeach
                 </div>
                 <div class="most-sale">
                     <h3 class="cat-title-sales text-center">Mais Vendidos</h3>
-                    <div class="row row-margin">
+                    <div class="row">
                         @foreach ( $mostSales as $sold )
-                        <div class="col-md-2 col-product">
-                            <div class="card product-card-i">
-                                <div class="card-body">
-                                    <div>
-                                        <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                        <div class="product">
-                                            <h5>{{ $sold->name }}</h5>
+                                <div class="col-sm-6 col-md-3 col-lg-3 col-product">
+                                    <div class="card product-card-i">
+                                        <div class="card-body">
+                                            <div>
+                                                <form action="{{ route('postProductBasket') }}" method="POST" id="submit-cart">
+                                                    @csrf
+                                                    @method('POST')
+                                                    <input type="hidden" name="product" value="{{ $sold->id }}">
+                                                    <input type="hidden" name="quantity" value="1">
+
+                                                    <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
+                                                    <div class="product">
+                                                        <h5>{{ $sold->name }}</h5>
+                                                    </div>
+                                                    <p>{{ currency_format($sold->price) }}</p>
+                                                    <button type="submit" class="add-to-cart btn btn-primary">Add to Cart</button>
+                                                </form>
+                                            </div>
                                         </div>
-                                        <p>{{ currency_format($sold->price) }}</p>
-                                        <form id="submit-cart" method="POST">
-                                             {{-- action="{{ route('postBasket') }}" method="post"> --}}
-                                            @csrf
-                                            @method('POST')
-                                            <input type="hidden" name="product">
-                                            <input type="hidden" name="quantity">
-                                        <button type="submit" class="add-to-cart btn btn-primary">Add to Cart</button>
-                                        </form>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                         @endforeach
-                    </div> 
+                    </div>
                     <div class="divider-prod"></div>
                 </div>
             </div>
         </div>
-        <script>
-            var form = document.getElementById('submit-cart');
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-            });
-        </script>
     </body>
 </html>

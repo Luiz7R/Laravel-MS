@@ -3,6 +3,7 @@
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CategoriesManagementController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductsController;
@@ -47,6 +48,10 @@ Route::get('/basket', [BasketController::class,'listBasket'])->name('listBasket'
 Route::post('/basket', [BasketController::class,'postProductBasket'])->name('postProductBasket');
 Route::patch('/basket/{id}', [BasketController::class,'updateProductBasket'])->name('updateProductBasket');
 Route::delete('/basket/{id}', [BasketController::class,'removeProduct'])->name('removeProduct');
+
+# Checkout Routes
+Route::get('/checkout', [CheckoutController::class,'checkoutPage'])->name('checkoutPage');
+Route::post('/checkout', [CheckoutController::class,'completeSale'])->name('postCheckout');
 
 # Admin
 Route::group(['middleware' => 'admin'], function($route) {

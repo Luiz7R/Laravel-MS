@@ -34,22 +34,31 @@
                         Sorry, we don't have any slippers at the moment.
                     </div>
                 @else
+                <div class="row">
                     @foreach ( $slippers as $slipper )
-                    <div class="col-md-2 col-product">
-                        <div class="card product-card-i" style="margin-top: 1rem;">
-                            <div class="card-body">
-                                <div>
-                                    <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                    <div class="product">
-                                        <h5>{{ $slipper->name }}</h5>
+                        <div class="col-sm-6 col-md-3 col-lg-3 col-product" style="padding-top: 1rem;">
+                            <div class="card product-card-i">
+                                <div class="card-body">
+                                    <div>
+                                        <form action="{{ route('postProductBasket') }}" method="POST" id="submit-cart">
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="product" value="{{ $slipper->id }}">
+                                            <input type="hidden" name="quantity" value="1">
+    
+                                            <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
+                                            <div class="product">
+                                                <h5>{{ $slipper->name }}</h5>
+                                            </div>
+                                            <p>{{ currency_format($slipper->price) }}</p>
+                                            <button type="submit" class="add-to-cart btn btn-primary">Add to Cart</button>
+                                        </form>
                                     </div>
-                                    <p>{{ currency_format($slipper->price) }}</p>
-                                    <button class="add-to-cart btn btn-primary" onclick="addToCart($slipper)">Add to Cart</button>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     @endforeach
+                </div>
                 @endif 
             </div>
         </div>

@@ -28,7 +28,7 @@
                                     <h5>{{ $tennis->name }}</h5>
                                 </div>
                                 <p>{{ currency_format($tennis->price) }}</p>
-                                <button class="add-to-cart btn btn-primary" onclick="addToCart($tennis)">Add to Cart</button>
+                                <button class="add-to-cart btn btn-primary">Add to Cart</button>
                             </div>
                         </div>
                     </div>
