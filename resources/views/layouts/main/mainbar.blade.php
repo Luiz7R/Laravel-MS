@@ -21,6 +21,9 @@
                    </form> 
                    <div class="basket">
                         <a href="/basket">
+                            <form action="{{ route('listBasket') }}" method="POST">
+                                @csrf
+                            </form>
                             <span class="text-white">Basket</span>
                         </a>
                    </div>

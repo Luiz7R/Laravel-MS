@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BasketController;
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\CategoriesManagementController;
 use App\Http\Controllers\PageController;
@@ -41,6 +42,13 @@ Route::get('/tennis', [ProductsController::class, 'tennis'])->name('tennis');
 Route::get('/slippers', [ProductsController::class, 'slippers'])->name('slippers');
 Route::get('/productsSearch/{msSearch}', [ProductsController::class, 'productsSearch'])->name('msSearch');
 
+# Basket Routes
+Route::get('/basket', [BasketController::class,'listBasket'])->name('listBasket');
+Route::post('/basket', [BasketController::class,'postProductBasket'])->name('postProductBasket');
+Route::patch('/basket/{id}', [BasketController::class,'updateProductBasket'])->name('updateProductBasket');
+Route::delete('/basket/{id}', [BasketController::class,'removeProduct'])->name('removeProduct');
+
+# Admin
 Route::group(['middleware' => 'admin'], function($route) {
     $route->get('/painel/products', [ProductsManagementController::class, 'manageProducts'])->name('manageProducts');
     $route->get('/painel/categories', [CategoriesManagementController::class, 'manageCategories'])->name('manageCategories');

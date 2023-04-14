@@ -48,7 +48,14 @@
                                             <h5>{{ $sold->name }}</h5>
                                         </div>
                                         <p>{{ currency_format($sold->price) }}</p>
-                                        <button class="add-to-cart btn btn-primary" onclick="addToCart($sold)">Add to Cart</button>
+                                        <form id="submit-cart" method="POST">
+                                             {{-- action="{{ route('postBasket') }}" method="post"> --}}
+                                            @csrf
+                                            @method('POST')
+                                            <input type="hidden" name="product">
+                                            <input type="hidden" name="quantity">
+                                        <button type="submit" class="add-to-cart btn btn-primary">Add to Cart</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -59,5 +66,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            var form = document.getElementById('submit-cart');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+            });
+        </script>
     </body>
 </html>

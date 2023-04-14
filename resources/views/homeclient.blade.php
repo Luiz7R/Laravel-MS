@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script> 
+    <script type="text/javascript" src="{{ asset('js/products/index.js') }}"></script> 
 </head>
 
 <body style="width: 100%; overflow-x: hidden;">
@@ -58,7 +59,7 @@
                                             <h5>{{ $productPromo->product->name }}</h5>
                                         </div>
                                         <p>{{ currency_format($productPromo->promo_price) }}</p>
-                                        <button class="add-to-cart btn btn-primary" onclick="addToCart($productPromo)">Add to Cart</button>
+                                        <button class="add-to-cart btn btn-primary" onclick="addToCart({{$productPromo->id}})">Add to Cart</button>
                                     </div>
                                 </div>
                             </div>
@@ -69,20 +70,26 @@
                         <h3 class="cat-title-sales text-center">Mais Vendidos</h3>
                         <div class="row row-margin">
                             @foreach ( $mostSales as $sold )
-                            <div class="col-md-2 col-product">
-                                <div class="card product-card-i">
-                                    <div class="card-body">
-                                        <div>
-                                            <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
-                                            <div class="product">
-                                                <h5>{{ $sold->name }}</h5>
+                            <form action="{{ route('postProductBasket') }}" method="POST" id="submit-cart">
+                                @csrf
+                                @method('POST')
+                                <div class="col-md-2 col-product">
+                                    <div class="card product-card-i">
+                                        <div class="card-body">
+                                            <input type="hidden" name="product" value="{{ $sold->id }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <div>
+                                                <img src={{ asset('img/prodc-img.jpg') }} class="img-fluid" alt="Product 1">
+                                                <div class="product">
+                                                    <h5>{{ $sold->name }}</h5>
+                                                </div>
+                                                <p>{{ currency_format($sold->price) }}</p>
+                                                <button class="add-to-cart btn btn-primary" type="submit">Add to Cart</button>
                                             </div>
-                                            <p>{{ currency_format($sold->price) }}</p>
-                                            <button class="add-to-cart btn btn-primary" onclick="addToCart($sold)">Add to Cart</button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                             @endforeach
                         </div> 
                         <div class="divider-prod"></div>

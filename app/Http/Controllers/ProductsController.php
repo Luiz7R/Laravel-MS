@@ -14,8 +14,11 @@ class ProductsController extends Controller
      public $categoriesRepository;
      public $productsManagementRepository;
 
-     public function __construct(ProductRepository $repository, CategoriesRepository $categoriesRepository, 
-          ProductsManagementRepository $productsManagementRepository)
+     public function __construct(
+          ProductRepository $repository,
+          CategoriesRepository $categoriesRepository, 
+          ProductsManagementRepository $productsManagementRepository
+     )
      {
           $this->repository = $repository;
           $this->productsManagementRepository = $productsManagementRepository;

@@ -28,7 +28,13 @@
                                     <h5>{{ $productPromo->product->name }}</h5>
                                 </div>
                                 <p>{{ currency_format($productPromo->promo_price) }}</p>
-                                <button class="add-to-cart btn btn-primary" onclick="addToCart($productPromo)">Add to Cart</button>
+                                <form action="{{ route('postProductBasket') }}" method="post">
+                                    @csrf
+                                    @method('POST')
+                                    <input type="hidden" name="product">
+                                    <input type="hidden" name="quantity">
+                                    <button type="submit" class="add-to-cart btn btn-primary" onclick="addToCart($productPromo)">Add to Cart</button>
+                                <form>
                             </div>
                         </div>
                     </div>

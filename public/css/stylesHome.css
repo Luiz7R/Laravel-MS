@@ -377,3 +377,67 @@ height: 100%;
   min-width: 5rem;
   max-width: 7rem;
 }
+
+/* basket */
+
+h1 {
+  margin-top: 0;
+  padding: 20px;
+  background-color: #FFA500;
+  color: white;
+  text-align: center;
+}
+table {
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid #CCC;
+  text-align: center;
+}
+th {
+  background-color: #EEE;
+}
+.total {
+  text-align: right;
+}
+
+.buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.btn-basket {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-basket:hover {
+  background-color: #3e8e41;
+}
+
+.back {
+  float: left;
+}
+
+.checkout {
+  float: right;
+}
+
+.card-quantity > input {
+  max-width: 5rem;
+}
+
+.cd-product {
+  display: inline;
+}
+
+.fa, .far, .fas {
+  font-family: "Font Awesome 5 Free" !important;
+}
